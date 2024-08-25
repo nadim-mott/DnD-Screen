@@ -34,8 +34,8 @@ public class Initiative implements Iterable<Creature>{
             this.head_node = new_node;
             this.tail_node = new_node;
             this.max_node = new_node;
-            new_node.prev = null;
-            new_node.next = null;
+            new_node.prev = new_node;
+            new_node.next = new_node;
             return;
         }
         Node curr = this.max_node;
@@ -76,6 +76,9 @@ public class Initiative implements Iterable<Creature>{
             if (node == this.tail_node){
                 this.tail_node = node.prev;
             }
+            if (node == this.head_node){
+                this.head_node = node.next;
+            }
         }
     }
 
@@ -92,6 +95,10 @@ public class Initiative implements Iterable<Creature>{
         return curr_node;
     }
 
+    public Creature get_creature_at_index(int index) throws IndexOutOfBoundsException{
+        return get_node_at_index(index).get_creature();
+    }
+
 
     @Override
     public Iterator<Creature> iterator() {
@@ -101,18 +108,23 @@ public class Initiative implements Iterable<Creature>{
     private class CreatureIterator implements Iterator<Creature>{
         private Node curr;
         private Initiative initiative;
+        private boolean done;
         public CreatureIterator(Initiative initiative){
             this.initiative = initiative;
             this.curr = initiative.head_node;
+            this.done = true;
         }
 
         @Override
         public boolean hasNext() {
-            return this.curr == initiative.tail_node;
+            return this.done;
         }
 
         @Override
         public Creature next() {
+            if (this.curr == initiative.tail_node){
+                this.done = false;
+            }
             Creature returnee = this.curr.get_creature();
             this.curr = this.curr.next;
             return returnee;
@@ -131,7 +143,7 @@ public class Initiative implements Iterable<Creature>{
             this.priority = priority;
             this.creature = creature;
             this.next = null;
-            this.prev = next;
+            this.prev = null;
             creature.set_initiative(this.get_initiative());
         }
 

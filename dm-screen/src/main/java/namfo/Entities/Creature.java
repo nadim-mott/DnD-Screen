@@ -4,9 +4,16 @@ public class Creature {
     private int AC;
     private int HP;
     private int initiative;
-    public Creature(){
+    private String name;
+    public Creature(String name){
+        this.name = name;
         
     }
+
+    public String toString(){
+        return name;
+    }
+
     // ---- Getters and Setters: ----
     public void set_initiative(int initiative){
         this.initiative = initiative;
