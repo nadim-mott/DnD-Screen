@@ -15,13 +15,25 @@ public class Evaluator {
         return returnee;
         
     }
-
+    
+    public static int parse_expression(String expression, Creature creature) throws ParseException{
+        Pattern variable_pattern = Pattern.compile("(.*)\\[(.*)](.*)");
+        Matcher variable_matcher = variable_pattern.matcher(expression);
+        if (variable_matcher.matches()){
+            String pre_variable = variable_matcher.group(1);
+            String variable = variable_matcher.group(2);
+            String post_variable = variable_matcher.group(3);
+            int variable_amount = creature.get_stat_by_name(variable).get_stat_amount();
+            return parse_expression(pre_variable + Integer.toString(variable_amount) + post_variable, creature);
+        }
+        return parse_expression(expression);
+    }
 
     public static int parse_expression(String expression) throws ParseException{
         // ---- Base Cases: ----
         if (expression.isEmpty()){
             // Base Case: empty string.
-            return 0;
+            throw new ParseException("Could not parse empty expression"+ expression, 0);
         }else if (expression.matches("^-?\\d+$")) {
             // Base Case: just digits.
             return Integer.valueOf(expression);

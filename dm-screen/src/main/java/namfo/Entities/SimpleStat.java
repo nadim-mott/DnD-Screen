@@ -1,16 +1,42 @@
 package namfo.Entities;
 
+import java.text.ParseException;
 import java.util.Dictionary;
+import java.util.Hashtable;
 
 public class SimpleStat {
     private int amount;
     private int max;
     private String name;
     private Boolean locked;
+    private Creature creature;
     private Dictionary<String,String> event_expressions;
     
-    public SimpleStat(String name, boolean locked){
+    public SimpleStat(String name, Creature creature, boolean locked){
+        this.name = name;
+        this.amount = 0;
+        this.max = 0;
+        this.creature = creature;
+        this.locked = locked;
+        this.event_expressions = new Hashtable<String,String>();
+    }
 
+    public void modify_event_expression(String event, String expression) throws OutOfMemoryError{
+        this.event_expressions.put(event, expression);
+    }
+
+
+    public void execute(String event){
+        String event_expression = event_expressions.get(event);
+        if (event_expression == null || event_expression.equals("")){
+            return;
+        }
+        try {
+            this.amount = Evaluator.parse_expression(event_expression, this.creature);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        
     }
 
     // ---- Getter and Setters: ----
@@ -48,7 +74,9 @@ public class SimpleStat {
 
     public Dictionary<String,String> get_event_expressions(){
         return event_expressions;
-    }   
+    } 
+
+    
 
 
 
