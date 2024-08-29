@@ -2,37 +2,51 @@ package namfo.Entities;
 
 import java.util.Iterator;
 
-public class Initiative implements Iterable<Creature>{
+public class Initiative implements Iterable<InitiativeEventInterface>{
     private Node head_node;
     private Node max_node;
-    private Node tail_node;
+    private int round;
 
     public Initiative(){
-        head_node = null;
-        max_node = null;
-        tail_node = null;
+        /* This class describes an ordered set of creatures that are involved in a combat
+         * encounter. Each creature is ordered based on their 'initiative value' as described in
+         * the Dungeons and Dragons player handbook (2014) pg 189. The underlying data structure 
+         * that stores the creature's turn order is a circular doubly linked list as described on
+         * https://en.wikipedia.org/wiki/Doubly_linked_list
+         */
+        this.head_node = null;
+        this.max_node = null;
+        this.round = -1;
+        
     }
 
     public void next_turn(){
+        /* This method cycles through the initiative order, performing the end of turn stat modifications
+         * to the creature whose turn it currently is before changing the turn to be the next creature and 
+         * performing that creature's end of turn stat modifications.
+         */
+        if (this.round < 0){
+            start_combat();
+        } else if (this.head_node == this.max_node){
+            this.round ++;
+        }
         this.head_node.get_creature().end_of_turn();
-        this.tail_node = tail_node.next;
         this.head_node = head_node.next;
         this.head_node.get_creature().start_of_turn();
     }
 
     public void start_combat(){
         this.head_node = this.max_node;
-        this.tail_node = this.max_node.prev;
-        for (Creature creature : this){
-            creature.start_combat();
+        for (InitiativeEventInterface ini : this){
+            ini.start_combat();
         }
+        this.round = 0;
     }
 
-    public void insert(float priority, Creature creature){
+    public void insert(float priority, InitiativeEventInterface creature){
         Node new_node = new Node(priority, creature);
         if (this.head_node == null){
             this.head_node = new_node;
-            this.tail_node = new_node;
             this.max_node = new_node;
             new_node.prev = new_node;
             new_node.next = new_node;
@@ -42,6 +56,9 @@ public class Initiative implements Iterable<Creature>{
         if (priority > this.max_node.get_priority()){
             this.max_node.insert_before(new_node);
             this.max_node = new_node;
+            if (this.round < 0){
+                this.head_node = new_node;
+            }
             return;
         } 
         do { 
@@ -61,21 +78,18 @@ public class Initiative implements Iterable<Creature>{
 
     public String toString(){
         String returnee = "[";
-        for (Creature creature : this){
-            returnee += creature.get_initiative() + ": " + creature.toString() + ",";
+        for (InitiativeEventInterface ini : this){
+            returnee += ini.get_initiative() + ": " + ini.toString() + ",";
         }
         return returnee.replaceAll(",$", "]");
     }
 
     private void remove_Node(Node node){
         if (node.next == node) {
-            this.tail_node = null;
+            this.head_node = null;
         } else {
             node.next.prev = node.prev;
             node.prev.next = node.next;
-            if (node == this.tail_node){
-                this.tail_node = node.prev;
-            }
             if (node == this.head_node){
                 this.head_node = node.next;
             }
@@ -95,17 +109,17 @@ public class Initiative implements Iterable<Creature>{
         return curr_node;
     }
 
-    public Creature get_creature_at_index(int index) throws IndexOutOfBoundsException{
+    public InitiativeEventInterface get_creature_at_index(int index) throws IndexOutOfBoundsException{
         return get_node_at_index(index).get_creature();
     }
 
 
     @Override
-    public Iterator<Creature> iterator() {
+    public Iterator<InitiativeEventInterface> iterator() {
         return new CreatureIterator(this);
     }
 
-    private class CreatureIterator implements Iterator<Creature>{
+    private class CreatureIterator implements Iterator<InitiativeEventInterface>{
         private Node curr;
         private Initiative initiative;
         private boolean done;
@@ -121,11 +135,11 @@ public class Initiative implements Iterable<Creature>{
         }
 
         @Override
-        public Creature next() {
-            if (this.curr == initiative.tail_node){
+        public InitiativeEventInterface next() {
+            if (this.curr == initiative.head_node.prev){
                 this.done = false;
             }
-            Creature returnee = this.curr.get_creature();
+            InitiativeEventInterface returnee = this.curr.get_creature();
             this.curr = this.curr.next;
             return returnee;
         }
@@ -135,20 +149,20 @@ public class Initiative implements Iterable<Creature>{
 
     private class Node {
         private float priority;
-        private Creature creature;
+        private final InitiativeEventInterface ini;
         public Node next;
         public Node prev;
 
-        public Node(float priority, Creature creature){
+        public Node(float priority, InitiativeEventInterface ini){
             this.priority = priority;
-            this.creature = creature;
+            this.ini = ini;
             this.next = null;
             this.prev = null;
-            creature.set_initiative(this.get_initiative());
+            ini.set_initiative(this.get_initiative());
         }
 
-        public Creature get_creature(){
-            return this.creature;
+        public InitiativeEventInterface get_creature(){
+            return this.ini;
         }
 
         public float get_priority(){

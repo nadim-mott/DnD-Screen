@@ -5,9 +5,10 @@ import org.junit.Test;
 
 import namfo.Entities.Creature;
 import namfo.Entities.Initiative;
+import namfo.Entities.InitiativeEventInterface;
 
 public class InitiativeTester {
-    public Initiative initialize_initiative(Creature creature1, Creature creature2, Creature creature3){
+    public Initiative initialize_initiative(InitiativeEventInterface creature1, InitiativeEventInterface creature2, InitiativeEventInterface creature3){
         Initiative initiative = new Initiative();
         initiative.insert(1.12f, creature3);
         initiative.insert(2.1f, creature2);
@@ -41,8 +42,9 @@ public class InitiativeTester {
         assertEquals("[2: Second creature,1: Third creature,18: Fourth creature,3: First creature]", initiative.toString());
         initiative.start_combat();
         assertEquals("[18: Fourth creature,3: First creature,2: Second creature,1: Third creature]", initiative.toString());
-    
     }
+
+
 
     @Test
     public void test_remove_first(){
@@ -73,4 +75,46 @@ public class InitiativeTester {
         initiative.remove_by_index(2);
         assertEquals("[3: First creature,2: Second creature]", initiative.toString());
     }
+
+    @Test
+    public void test_next_turn(){
+        
+    }
+
+
+    private class mockCreature implements InitiativeEventInterface{
+
+        @Override
+        public void set_initiative(int _initiative) {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'set_initiative'");
+        }
+
+        @Override
+        public int get_initiative() {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'get_initiative'");
+        }
+
+        @Override
+        public void start_combat() {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'start_combat'");
+        }
+
+        @Override
+        public void start_of_turn() {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'start_of_turn'");
+        }
+
+        @Override
+        public void end_of_turn() {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'end_of_turn'");
+        }
+
+    }
+
+
 }

@@ -1,10 +1,8 @@
 package namfo.Entities;
 
-public class Creature {
-    private int AC;
-    private int HP;
-    private int initiative;
+public class Creature implements InitiativeEventInterface{
     private String name;
+    private int initiative;
     public Creature(String name){
         this.name = name;
         
