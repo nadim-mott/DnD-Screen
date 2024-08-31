@@ -13,28 +13,27 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="namfo.Controllers.EditView">
    <children>
-      <Button fx:id="save_button" layoutX="145.0" layoutY="355.0" mnemonicParsing="false" text="Save" />
-      <VBox prefHeight="186.0" prefWidth="320.0" spacing="10.0">
+      <VBox fx:id="vertical_box" prefHeight="186.0" prefWidth="320.0" spacing="10.0">
          <children>
             <HBox prefHeight="100.0" prefWidth="363.0">
                <children>
                   <Label prefHeight="18.0" prefWidth="124.0" text="Creature Name:" />
-                  <TextField prefHeight="25.0" prefWidth="170.0" promptText="Noah Tingortu" />
+                  <TextField fx:id="name_field" prefHeight="25.0" prefWidth="170.0" promptText="Noah Tingortu" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Label prefHeight="18.0" prefWidth="124.0" text="Border Color:" />
-                  <ColorPicker editable="true" prefHeight="23.0" prefWidth="106.0" />
+                  <ColorPicker fx:id="border_color_picker" editable="true" prefHeight="23.0" prefWidth="106.0" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Label prefHeight="18.0" prefWidth="124.0" text="Auto roll initiative?" />
-                  <CheckBox mnemonicParsing="false" prefHeight="23.0" prefWidth="25.0" />
-                  <TextField prefHeight="25.0" prefWidth="37.0" promptText="+?" />
+                  <CheckBox fx:id="auto_roll_checkbox" mnemonicParsing="false" onAction="#auto_roll_tick" prefHeight="23.0" prefWidth="25.0" />
+                  <TextField fx:id="auto_roll_modifier" prefHeight="25.0" prefWidth="78.0" promptText="1d20+?" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
@@ -45,13 +44,27 @@
                         <Image url="@../../../../Assets/Images/default_creature.png" />
                      </image>
                   </ImageView>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="74.0" text="Select" />
+                  <Button mnemonicParsing="false" onAction="#select_image" prefHeight="25.0" prefWidth="74.0" text="Select" />
                </children>
             </HBox>
-            <Button mnemonicParsing="false" text="+">
-               <font>
-                  <Font name="Arial" size="11.0" />
-               </font>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="plus_button" mnemonicParsing="false" onAction="#press_more" text="+">
+                     <font>
+                        <Font name="Arial" size="11.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="plus_button1" mnemonicParsing="false" onAction="#press_more" prefHeight="22.0" prefWidth="22.0" text="-">
+                     <font>
+                        <Font name="Arial" size="11.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            <Button fx:id="save_button" mnemonicParsing="false" onAction="#save" text="Save">
+               <VBox.margin>
+                  <Insets left="120.0" />
+               </VBox.margin>
             </Button>
          </children>
          <padding>

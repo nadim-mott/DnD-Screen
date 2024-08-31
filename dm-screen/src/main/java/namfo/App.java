@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import namfo.Controllers.ViewManager;
 
 /**
  * JavaFX App
@@ -14,29 +15,20 @@ import javafx.stage.Stage;
 public class App extends Application {
     public String ASSET_PATH = "file:dm-screen/src/Assets/";
     public String IMAGES_PATH = ASSET_PATH + "/Images/";
+    public static ViewManager viewManager;
 
 
     public static void main(String[] args) {
+        viewManager = new ViewManager();
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        try {
-            Parent root = loadFXML("SceneBuilderFiles/InitiativePage");
-            Scene scene = new Scene(root,400,400);
-            primaryStage.setScene(scene);
-            primaryStage.show();
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        viewManager.set_scene("Edit", primaryStage);
+        primaryStage.show();
         
         
-    }
-    private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        return fxmlLoader.load();
     }
 
 }
