@@ -47,6 +47,23 @@
                   <Button mnemonicParsing="false" onAction="#select_image" prefHeight="25.0" prefWidth="74.0" text="Select" />
                </children>
             </HBox>
+            <HBox fx:id="stat_labels" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label maxWidth="150.0" minWidth="150.0" text="Variable Name:" />
+                  <Label maxWidth="150.0" minWidth="150.0" text="Value:" />
+                  <Label maxWidth="150.0" minWidth="150.0" text="Max:" />
+                  <Button fx:id="plus_event" mnemonicParsing="false" onAction="#press_more" text="+">
+                     <font>
+                        <Font name="Arial" size="11.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="minus_event" mnemonicParsing="false" onAction="#press_more" prefHeight="22.0" prefWidth="22.0" text="-">
+                     <font>
+                        <Font name="Arial" size="11.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Button fx:id="plus_button" mnemonicParsing="false" onAction="#press_more" text="+">

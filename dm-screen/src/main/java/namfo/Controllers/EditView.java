@@ -8,10 +8,15 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import namfo.use_case.LoadCreatureUseCase.LoadCreatureInputBoundary;
+import namfo.use_case.LoadCreatureUseCase.LoadCreatureOutputBoundary;
+import namfo.use_case.LoadCreatureUseCase.LoadCreatureOutputData;
 
-public class EditView {
+public class EditView implements LoadCreatureOutputBoundary{
     @FXML
     private CheckBox auto_roll_checkbox;
+
+    private LoadCreatureInputBoundary LoadCreatureInteractor;
 
     @FXML
     private TextField auto_roll_modifier;
@@ -30,6 +35,15 @@ public class EditView {
 
     @FXML
     private VBox vertical_box;
+
+    @FXML
+    private HBox stat_labels;
+
+    @FXML
+    private Button plus_event;
+
+    @FXML
+    private Button minus_event;
 
     @FXML
     void auto_roll_tick(ActionEvent event) {
@@ -60,9 +74,6 @@ public class EditView {
 
     }
 
-    public void load_creature(){
-        
-    }
 
     @FXML
     void save(ActionEvent event) {
@@ -72,6 +83,21 @@ public class EditView {
     @FXML
     void select_image(ActionEvent event) {
 
+    }
+
+
+    @Override
+    public void loadCreaturePrepareSuccessView(LoadCreatureOutputData data) {
+        name_field.setText(data.getName());
+        border_color_picker.setValue(data.getBorderColor());
+        auto_roll_checkbox.setSelected(data.getAutoRoll());
+        auto_roll_modifier.setText(data.getAutoRollExpression());
+        Image
+    }
+
+    @Override
+    public void loadCreaturePrepareFailView(LoadCreatureOutputData data) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

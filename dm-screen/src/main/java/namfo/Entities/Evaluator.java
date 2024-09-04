@@ -15,6 +15,16 @@ public class Evaluator {
         return returnee;
         
     }
+
+    public static boolean isValidExpression(String expression, Creature creature){
+        try {
+            parse_expression(expression, creature);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     
     public static int parse_expression(String expression, Creature creature) throws ParseException{
         Pattern variable_pattern = Pattern.compile("(.*)\\[(.*)](.*)");
