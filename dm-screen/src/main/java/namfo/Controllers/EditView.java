@@ -92,7 +92,7 @@ public class EditView implements LoadCreatureOutputBoundary{
         border_color_picker.setValue(data.getBorderColor());
         auto_roll_checkbox.setSelected(data.getAutoRoll());
         auto_roll_modifier.setText(data.getAutoRollExpression());
-        Image
+        //Image
     }
 
     @Override

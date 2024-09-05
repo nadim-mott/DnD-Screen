@@ -11,6 +11,10 @@ public class SimpleStat {
     private Boolean locked;
     private Creature creature;
     private Dictionary<String,String> event_expressions;
+
+    public final static String START_EVENT = "Start of Combat";
+    public final static String BEGIN_TURN_EVENT = "Beginning of Turn";
+    public final static String END_TURN_EVENT = "End of Turn";
     
     public SimpleStat(String name, Creature creature, boolean locked){
         this.name = name;

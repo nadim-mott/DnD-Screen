@@ -12,15 +12,17 @@ public class LoadCreatureOutputData {
     private final Boolean auto_roll;
     private final String auto_roll_expression;
     private final Image image;
+    private final Image statblock;
     private final List<String> events;
     private final List<SimpleStat> simplestats;
 
-    public LoadCreatureOutputData(String name, Color border_color, Boolean auto_roll, String auto_roll_expression, Image image, List<String> events, List<SimpleStat> simplestats) {
+    public LoadCreatureOutputData(String name, Color border_color, Boolean auto_roll, String auto_roll_expression, Image image, Image statblock, List<String> events, List<SimpleStat> simplestats) {
         this.name = name;
         this.border_color = border_color;
         this.auto_roll = auto_roll;
         this.auto_roll_expression = auto_roll_expression;
         this.image = image;
+        this.statblock = statblock;
         this.events = events;
         this.simplestats = simplestats;
     }
@@ -44,6 +46,11 @@ public class LoadCreatureOutputData {
     public Image getImage(){
         return this.image;
     }
+
+    public Image getStatBlock(){
+        return this.statblock;
+    }
+
     public List<SimpleStat> getSimpleStat(){
         return this.simplestats;
     }

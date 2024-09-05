@@ -18,7 +18,7 @@ public class LoadCreatureInteractor implements LoadCreatureInputBoundary{
         Creature creature = dataAccessInterface.loadCreatureByIndex(creature_index);
         // Get creature simple stats and turn them into string double list
 
-        LoadCreatureOutputData data = new LoadCreatureOutputData(creature.getName(), creature.getBorderColor(), creature.getAutoRoll(), creature.getAutoRollExpression(), creature.getImage(), creature.getEvents(), creature.getSimpleStats());
+        LoadCreatureOutputData data = new LoadCreatureOutputData(creature.getName(), creature.getBorderColor(), creature.getAutoRoll(), creature.getAutoRollExpression(), creature.getImage(), creature.getStatblock(), creature.getEvents(), creature.getSimpleStats());
         loadCreaturePresenter.loadCreaturePrepareSuccessView(data);
 
     }

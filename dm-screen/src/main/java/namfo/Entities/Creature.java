@@ -13,11 +13,22 @@ public class Creature implements InitiativeEventInterface{
     private Boolean auto_roll;
     private String auto_roll_expression;
     private Image image;
+    private Image statblock;
     private List<String> events;
     private List<SimpleStat> statistics;
     
     public Creature(String name){
         this.name = name;
+        this.initiative = 0;
+        this.color = Color.WHITE;
+        this.auto_roll = false;
+        this.auto_roll_expression = "";
+        this.image = null;
+        this.statblock = null;
+        this.events = new LinkedList<String>();
+        events.add(SimpleStat.START_EVENT);
+        events.add(SimpleStat.BEGIN_TURN_EVENT);
+        events.add(SimpleStat.END_TURN_EVENT);
         this.statistics = new LinkedList<SimpleStat>();
     }
 
@@ -93,6 +104,14 @@ public class Creature implements InitiativeEventInterface{
 
     public void setImage(Image new_image){
         this.image = new_image;
+    }
+
+    public Image getStatblock(){
+        return this.statblock;
+    }
+
+    public void setStatblock(Image new_statblock){
+        this.statblock = new_statblock;
     }
 
     public List<String> getEvents(){
