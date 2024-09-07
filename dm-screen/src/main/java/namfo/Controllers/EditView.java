@@ -6,6 +6,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import namfo.use_case.LoadCreatureUseCase.LoadCreatureInputBoundary;
@@ -28,6 +30,12 @@ public class EditView implements LoadCreatureOutputBoundary{
     private TextField name_field;
 
     @FXML
+    private ImageView characterImage;
+
+    @FXML
+    private ImageView characterStatblock;
+
+    @FXML
     private Button plus_button;
 
     @FXML
@@ -44,6 +52,7 @@ public class EditView implements LoadCreatureOutputBoundary{
 
     @FXML
     private Button minus_event;
+
 
     @FXML
     void auto_roll_tick(ActionEvent event) {
@@ -92,7 +101,17 @@ public class EditView implements LoadCreatureOutputBoundary{
         border_color_picker.setValue(data.getBorderColor());
         auto_roll_checkbox.setSelected(data.getAutoRoll());
         auto_roll_modifier.setText(data.getAutoRollExpression());
-        //Image
+        characterImage.setImage(data.getImage());
+        characterStatblock.setImage(data.getStatBlock());
+
+        // handle events:
+        HBox events = stat_labels;
+        for (String event_string : data.getEvents()){
+            event_string.
+        }
+        events.getChildren();
+
+        
     }
 
     @Override
