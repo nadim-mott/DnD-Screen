@@ -107,7 +107,7 @@ public class EditView implements LoadCreatureOutputBoundary{
         // handle events:
         HBox events = stat_labels;
         for (String event_string : data.getEvents()){
-            event_string.
+            events.getChildren()
         }
         events.getChildren();
 
