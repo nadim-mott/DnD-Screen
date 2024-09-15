@@ -5,11 +5,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import namfo.Entities.SimpleStat;
 import namfo.use_case.LoadCreatureUseCase.LoadCreatureInputBoundary;
 import namfo.use_case.LoadCreatureUseCase.LoadCreatureOutputBoundary;
 import namfo.use_case.LoadCreatureUseCase.LoadCreatureOutputData;
@@ -52,6 +53,8 @@ public class EditView implements LoadCreatureOutputBoundary{
 
     @FXML
     private Button minus_event;
+
+    private final Double EVENT_LABEL_WIDTH = 150.0;
 
 
     @FXML
@@ -103,12 +106,26 @@ public class EditView implements LoadCreatureOutputBoundary{
         auto_roll_modifier.setText(data.getAutoRollExpression());
         characterImage.setImage(data.getImage());
         characterStatblock.setImage(data.getStatBlock());
-
+        // TODO finish implementing.
         // handle events:
         HBox events = stat_labels;
-        for (String event_string : data.getEvents()){
-            events.getChildren()
+        for (SimpleStat stat : data.getSimpleStat()){
+            HBox simstat_row = new HBox();
+            Label stat_name_label = new Label(stat.get_name());
+            stat_name_label.setMaxWidth(EVENT_LABEL_WIDTH);
+            stat_name_label.setMinWidth(EVENT_LABEL_WIDTH);
+            simstat_row.getChildren().add(stat_name_label);
+
+
         }
+        for (String event_string : data.getEvents()){
+            Label event_name_label = new Label(event_string);
+            event_name_label.setMinWidth(EVENT_LABEL_WIDTH);
+            event_name_label.setMaxWidth(EVENT_LABEL_WIDTH);
+
+            events.getChildren().add(event_name_label);
+        }
+        
         events.getChildren();
 
         

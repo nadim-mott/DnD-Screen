@@ -1,11 +1,6 @@
 package namfo;
 
-import java.io.IOException;
-
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import namfo.Controllers.ViewManager;
 
@@ -25,7 +20,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        viewManager.set_scene("Edit", primaryStage);
+        viewManager.set_scene("InitiativePage", primaryStage);
         primaryStage.show();
         
         

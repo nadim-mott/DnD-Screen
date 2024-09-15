@@ -126,7 +126,12 @@ public class Initiative implements Iterable<InitiativeEventInterface>{
         public CreatureIterator(Initiative initiative){
             this.initiative = initiative;
             this.curr = initiative.head_node;
-            this.done = true;
+            if (this.curr != null){
+                this.done = true;
+            } else {
+                this.done = false;
+            }
+            
         }
 
         @Override

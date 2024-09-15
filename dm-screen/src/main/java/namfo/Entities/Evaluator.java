@@ -24,7 +24,6 @@ public class Evaluator {
             return false;
         }
     }
-
     
     public static int parse_expression(String expression, Creature creature) throws ParseException{
         Pattern variable_pattern = Pattern.compile("(.*)\\[(.*)](.*)");

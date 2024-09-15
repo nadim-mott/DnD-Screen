@@ -6,8 +6,8 @@ import namfo.Entities.Creature;
 
 public interface CreatureManagerDataAccessInterface {
     public List<String> loadNames();
-    public Creature loadCreatureByIndex(int index);
+    public Creature loadCreatureByIndex(int index) throws IndexOutOfBoundsException;
     public void saveCreature(Creature creature);
-    public void removeCreature(int index);
+    public void removeCreature(int index) throws IndexOutOfBoundsException;
 
 }
